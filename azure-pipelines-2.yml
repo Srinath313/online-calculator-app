@@ -7,15 +7,7 @@ trigger:
 - main
 
 pool:
-  name: linuxhapool
-- task: AzureRmWebAppDeployment@4
-  inputs:
-    ConnectionType: 'AzureRM'
-    azureSubscription: 'Free Trial (9facf577-1995-4354-b480-1c1148e24d64)'
-    appType: 'webAppLinux'
-    WebAppName: 'myapp2345'
-    packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
-    RuntimeStack: 'DOTNETCORE|6.0'
+  name: 'linuxhapool'  # Your self-hosted agent pool name
 
 variables:
   solution: '**/*.sln'
@@ -40,3 +32,12 @@ steps:
   inputs:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
+
+- task: AzureRmWebAppDeployment@4
+  inputs:
+    ConnectionType: 'AzureRM'
+    azureSubscription: 'Free Trial (9facf577-1995-4354-b480-1c1148e24d64)'
+    appType: 'webAppLinux'
+    WebAppName: 'myapp2345'
+    packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
+    RuntimeStack: 'DOTNETCORE|6.0'
